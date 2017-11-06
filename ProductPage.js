@@ -5,10 +5,10 @@ import Button from 'apsl-react-native-button';
 import Communications from 'react-native-communications';
 
 import baseStyle from './style';
-import ProductHeader from './ProductHeader';
-import ProductDetail from './ProductDetail';
-import ProductPrice from './ProductPrice';
-import ProductCall from './ProductCall';
+// import ProductHeader from './src/ProductHeader';
+import ProductDetail from './src/ProductDetail';
+import ProductPrice from './src/ProductPrice';
+// import ProductCall from './src/ProductCall';
 
 const apiKey = '';
 const productSpreadsheetId = '';
@@ -66,8 +66,8 @@ export default class ProductPage extends Component {
         <View style={style.container}>
           <ScrollView>
             <View style={style.header}>
-              <ProductHeader name="លេខកូដ" value={this.state.code} />
-              <ProductHeader name="ឈ្មោះទំនិញ" value={this.state.name} />
+              {/*<ProductHeader name="លេខកូដ" value={this.state.code} />
+                            <ProductHeader name="ឈ្មោះទំនិញ" value={this.state.name} />*/}
               <ProductPrice name="តំលៃ" value={this.state.price} />
             </View>
             {wholesalePrice}

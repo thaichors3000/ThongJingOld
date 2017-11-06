@@ -19,6 +19,7 @@ public class RCTCameraView extends ViewGroup {
     private RCTCameraViewFinder _viewFinder = null;
     private int _actualDeviceOrientation = -1;
     private int _aspect = RCTCameraModule.RCT_CAMERA_ASPECT_FIT;
+    private int _captureMode = RCTCameraModule.RCT_CAMERA_CAPTURE_MODE_STILL;
     private String _captureQuality = "high";
     private int _torchMode = -1;
     private int _flashMode = -1;
@@ -73,9 +74,16 @@ public class RCTCameraView extends ViewGroup {
                 _viewFinder.setFlashMode(this._flashMode);
             }
             if (-1 != this._torchMode) {
-                _viewFinder.setFlashMode(this._torchMode);
+                _viewFinder.setTorchMode(this._torchMode);
             }
             addView(_viewFinder);
+        }
+    }
+
+    public void setCaptureMode(final int captureMode) {
+        this._captureMode = captureMode;
+        if (this._viewFinder != null) {
+            this._viewFinder.setCaptureMode(captureMode);
         }
     }
 

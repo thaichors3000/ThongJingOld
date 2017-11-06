@@ -100,19 +100,30 @@ class ThongJing extends Component {
     .then((response) => response.json())
     .then((responseJson) => {
       let rowMac = responseJson.values.find(row => row[1] === this.state.macAddress);
-      let rowIp = responseJson.values.find(row => row[0] === this.state.ip);
+      let rowIp = null;
+      let userRole = '';
 
-      if (rowMac && !rowIp) {
+      if(rowMac != undefined) {
+        rowIp = rowMac[0] === this.state.ip;
+        userRole = rowMac[2];
+      }else {
+        rowIp = responseJson.values.find(row => row[0] === this.state.ip);
+        if(rowIp != undefined) {
+          userRole = rowIp[2];
+        }
+      }
+
+      if (rowMac && userRole == 'Admin') {
         this.setState({ role: 'Admin', isLoaded: true });
         return;
       }
 
-      if (rowMac && rowIp) {
+      if (rowMac && rowIp && userRole == 'Seller') {
         this.setState({ role: 'Seller', isLoaded: true });
         return;
       }
 
-      if (!rowMac && rowIp) {
+      if (!rowMac && rowIp && userRole == 'Client') {
         this.setState({ role: 'Client', isLoaded: true });
         return;
       }
@@ -120,7 +131,6 @@ class ThongJing extends Component {
       showRoleNotFound();
     })
     .catch((error) => {
-      console.log(error);
       alert('មិនអាចទាញទិន្នន័យបាន');
     });
   }
@@ -135,7 +145,8 @@ function showRoleNotFound() {
       text: 'ចាកចេញ',
       onPress: () => BackAndroid.exitApp(),
     },
-  ]);
+  ],
+  { cancelable: false });
 }
 
 const style = StyleSheet.create({
